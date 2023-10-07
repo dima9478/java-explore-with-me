@@ -1,0 +1,14 @@
+{
+  "properties": [
+    {
+      "name": "stats-server.url",
+      "type": "java.lang.String",
+      "description": "Stat server url."
+    },
+    {
+      "name": "service.name",
+      "type": "java.lang.String",
+      "description": "Name of the service for stats storing."
+    }
+  ]
+}
