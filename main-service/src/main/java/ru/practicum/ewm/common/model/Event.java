@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -52,4 +53,6 @@ public class Event {
     private User author;
     @Embedded
     private Location location;
+    @OneToMany(mappedBy = "event")
+    private List<Request> requests;
 }

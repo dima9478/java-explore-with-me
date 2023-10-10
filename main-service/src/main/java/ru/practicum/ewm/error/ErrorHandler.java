@@ -1,6 +1,9 @@
-package ru.practicum.ewm.common.error;
+package ru.practicum.ewm.error;
 
+import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -32,29 +35,35 @@ public class ErrorHandler {
 
     @ExceptionHandler({
             ConstraintViolationException.class,
-            NumberFormatException.class
+            NumberFormatException.class,
+            MethodArgumentNotValidException.class,
+            MissingServletRequestParameterException.class,
+            TypeMismatchException.class,
+            BadRequestException.class
     })
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ApiError handleAnnotatedValidation(RuntimeException e) {
+    public ApiError handleStandardValidation(Exception e) {
         ApiError resp = makeErrorResponse(e, HttpStatus.BAD_REQUEST.name());
         resp.setReason("Invalid request parameters or body");
 
         return resp;
     }
 
-    ApiError handleOthers(RuntimeException e) {
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ApiError handleOthers(Throwable e) {
         ApiError resp = makeErrorResponse(e, HttpStatus.INTERNAL_SERVER_ERROR.name());
         resp.setReason("Unrecognized error occurred.");
 
         return resp;
     }
 
-    private ApiError makeErrorResponse(RuntimeException e, String status) {
+    private ApiError makeErrorResponse(Throwable e, String status) {
         return ApiError.builder()
                 .errors(Arrays.stream(e.getStackTrace())
                         .map(StackTraceElement::toString)
                         .collect(Collectors.toList()))
-                .message(e.getMessage())
+                .message(e.getMessage() != null ? e.getMessage() : "")
                 .status(status)
                 .timestamp(LocalDateTime.now())
                 .build();

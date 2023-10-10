@@ -24,14 +24,14 @@ public class AdminUserController {
 
     @GetMapping
     List<UserDto> getUsers(
-            @RequestParam List<Long> ids,
+            @RequestParam(required = false) List<Long> ids,
             @RequestParam(defaultValue = "0") int from,
             @RequestParam(defaultValue = "10") int size) {
         return service.getUsers(ids, new PaginationRequest(size, from));
     }
 
     @DeleteMapping("/{userId}")
-    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     void deleteUser(@PathVariable long userId) {
         service.deleteUser(userId);
     }

@@ -8,6 +8,7 @@ import ru.practicum.ewm.common.model.Request;
 import ru.practicum.ewm.common.model.RequestStatus;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface RequestRepository extends JpaRepository<Request, Long> {
     @EntityGraph("Request.eager")
@@ -17,17 +18,22 @@ public interface RequestRepository extends JpaRepository<Request, Long> {
 
     @Query("select new ru.practicum.ewm.common.model.EventConfirmedRequestCount(r.event.id, count(*)) " +
             "from Request r " +
-            "where r.status = 'CONFIRMED' and r.event.id in ?1" +
+            "where r.status = 'CONFIRMED' and r.event.id in ?1 " +
             "group by r.event.id"
     )
     List<EventConfirmedRequestCount> getEventsConfirmedRequestsCount(List<Long> eventIds);
 
-    @Query("select new ru.practicum.ewm.common.model.EventConfirmedRequestCount(r.event.id, count(*)) " +
+    @Query("select count(*) " +
             "from Request r " +
-            "where r.status = 'CONFIRMED' and r.event.id = ?1"
+            "where r.status = 'CONFIRMED' and r.event.id = ?1 "
     )
-    EventConfirmedRequestCount getEventConfirmedRequestsCount(long eventId);
+    long getEventConfirmedRequestsCount(long eventId);
 
     @EntityGraph("Request.eager")
     List<Request> findAllByIdIn(List<Long> requestIds);
+
+    @EntityGraph("Request.eager")
+    List<Request> findByRequestorId(long requestorId);
+
+    Optional<Request> getAllByIdAndRequestorId(long requestId, long userId);
 }

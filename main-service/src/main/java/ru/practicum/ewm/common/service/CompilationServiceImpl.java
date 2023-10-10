@@ -3,12 +3,12 @@ package ru.practicum.ewm.common.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import ru.practicum.ewm.admin.dto.CompilationDto;
 import ru.practicum.ewm.admin.dto.NewCompilationDto;
 import ru.practicum.ewm.admin.dto.UpdateCompilationRequest;
 import ru.practicum.ewm.admin.mapper.CompilationMapper;
-import ru.practicum.ewm.common.error.NotFoundException;
 import ru.practicum.ewm.common.model.Compilation;
 import ru.practicum.ewm.common.model.Event;
 import ru.practicum.ewm.common.param.PaginationRequest;
@@ -17,6 +17,7 @@ import ru.practicum.ewm.common.repository.CompilationRepository;
 import ru.practicum.ewm.common.repository.EventRepository;
 import ru.practicum.ewm.common.util.DbAvailabilityChecker;
 import ru.practicum.ewm.common.util.EventDtoAuxiliaryProcessor;
+import ru.practicum.ewm.error.NotFoundException;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public class CompilationServiceImpl implements CompilationService {
     private final DbAvailabilityChecker availabilityChecker;
     private final EventDtoAuxiliaryProcessor eventProcessor;
 
+    @Transactional
     @Override
     public CompilationDto addCompilation(@Valid NewCompilationDto dto) {
         List<Event> events;
@@ -53,11 +55,13 @@ public class CompilationServiceImpl implements CompilationService {
                 eventProcessor.getViewStats(events));
     }
 
+    @Transactional
     @Override
     public CompilationDto changeCompilation(long compId, @Valid UpdateCompilationRequest dto) {
         Compilation compilation = availabilityChecker.checkCompilation(compId);
 
         applyPatch(compilation, dto);
+        compilationRepository.save(compilation);
 
         return CompilationMapper.toDto(
                 compilation,
@@ -65,6 +69,7 @@ public class CompilationServiceImpl implements CompilationService {
                 eventProcessor.getViewStats(compilation.getEvents()));
     }
 
+    @Transactional
     @Override
     public void deleteCompilation(long compId) {
         availabilityChecker.checkCompilation(compId);
@@ -72,6 +77,7 @@ public class CompilationServiceImpl implements CompilationService {
         compilationRepository.deleteById(compId);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<CompilationDto> getCompilations(boolean pinned, @Valid PaginationRequest pag) {
         List<Compilation> compilations = compilationRepository.findAllByPinned(
@@ -91,6 +97,7 @@ public class CompilationServiceImpl implements CompilationService {
         );
     }
 
+    @Transactional(readOnly = true)
     @Override
     public CompilationDto getCompilation(long compId) {
         Compilation compilation = availabilityChecker.checkCompilation(compId);

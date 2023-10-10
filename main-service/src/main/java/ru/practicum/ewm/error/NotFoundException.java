@@ -1,4 +1,4 @@
-package ru.practicum.ewm.common.error;
+package ru.practicum.ewm.error;
 
 import lombok.Getter;
 

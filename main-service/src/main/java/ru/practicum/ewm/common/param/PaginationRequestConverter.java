@@ -10,4 +10,8 @@ public class PaginationRequestConverter {
     public static Pageable toPageable(PaginationRequest pagRequest, Sort sort) {
         return PageRequest.of(pagRequest.getFrom() / pagRequest.getSize(), pagRequest.getSize(), sort);
     }
+
+    public static Pageable toPageable(PaginationRequest pagRequest) {
+        return PageRequest.of(pagRequest.getFrom() / pagRequest.getSize(), pagRequest.getSize());
+    }
 }

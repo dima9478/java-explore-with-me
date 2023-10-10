@@ -43,7 +43,8 @@ CREATE TABLE IF NOT EXISTS participant_requests
     event_id     bigint      NOT NULL REFERENCES events (id),
     requestor_id bigint      NOT NULL REFERENCES users (id),
     status       varchar(20) NOT NULL,
-    created      timestamp   NOT NULL
+    created timestamp NOT NULL,
+    CONSTRAINT uq_request UNIQUE (event_id, requestor_id)
 );
 
 CREATE TABLE IF NOT EXISTS events_compilations

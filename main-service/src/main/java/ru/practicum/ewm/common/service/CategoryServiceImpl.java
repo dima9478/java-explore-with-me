@@ -4,17 +4,18 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import ru.practicum.ewm.admin.dto.NewCategoryDto;
 import ru.practicum.ewm.admin.mapper.CategoryMapper;
 import ru.practicum.ewm.common.dto.CategoryDto;
-import ru.practicum.ewm.common.error.ConflictException;
 import ru.practicum.ewm.common.model.Category;
 import ru.practicum.ewm.common.param.PaginationRequest;
 import ru.practicum.ewm.common.param.PaginationRequestConverter;
 import ru.practicum.ewm.common.repository.CategoryRepository;
 import ru.practicum.ewm.common.repository.EventRepository;
 import ru.practicum.ewm.common.util.DbAvailabilityChecker;
+import ru.practicum.ewm.error.ConflictException;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -54,6 +55,7 @@ public class CategoryServiceImpl implements CategoryService {
         return CategoryMapper.toDto(category);
     }
 
+    @Transactional
     @Override
     public void deleteCategory(long catId) {
         availabilityChecker.checkCategory(catId);

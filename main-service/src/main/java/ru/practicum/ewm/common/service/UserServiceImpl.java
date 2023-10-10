@@ -2,18 +2,18 @@ package ru.practicum.ewm.common.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import ru.practicum.ewm.admin.dto.NewUserRequest;
 import ru.practicum.ewm.admin.dto.UserDto;
 import ru.practicum.ewm.admin.mapper.UserMapper;
-import ru.practicum.ewm.common.error.ConflictException;
 import ru.practicum.ewm.common.model.User;
 import ru.practicum.ewm.common.param.PaginationRequest;
 import ru.practicum.ewm.common.param.PaginationRequestConverter;
 import ru.practicum.ewm.common.repository.UserRepository;
 import ru.practicum.ewm.common.util.DbAvailabilityChecker;
+import ru.practicum.ewm.error.ConflictException;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -43,13 +43,14 @@ public class UserServiceImpl implements UserService {
             users = userRepository.findAllByIdIn(ids);
         } else {
             users = userRepository.findAll(
-                    PaginationRequestConverter.toPageable(pagination, Sort.by(Sort.Direction.ASC, "id"))
+                    PaginationRequestConverter.toPageable(pagination)
             ).toList();
         }
 
         return UserMapper.toDtoList(users);
     }
 
+    @Transactional
     @Override
     public void deleteUser(Long userId) {
         checker.checkUser(userId);

@@ -36,6 +36,18 @@ public class EventMapper {
                 .build();
     }
 
+    public static List<EventFullDto> toEventFullDtoList(List<Event> events,
+                                                        Map<Long, Long> confirmedRequests,
+                                                        Map<Long, Long> eventViews) {
+        return events.stream()
+                .map(e -> toEventFullDto(
+                        e,
+                        confirmedRequests.getOrDefault(e.getId(), 0L),
+                        eventViews.getOrDefault(e.getId(), 0L))
+                )
+                .collect(Collectors.toList());
+    }
+
     public static EventFullDto toEventFullDto(Event event, Long confirmedRequests, Long views) {
         return EventFullDto.builder()
                 .id(event.getId())

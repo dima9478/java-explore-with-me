@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.dto.EndpointHitDto;
 import ru.practicum.dto.ViewStats;
+import ru.practicum.ewm.error.BadRequestException;
+import ru.practicum.ewm.error.Error;
 import ru.practicum.ewm.param.StatParams;
 import ru.practicum.ewm.service.HitService;
 
@@ -32,5 +34,11 @@ public class StatsController {
                              @RequestParam(defaultValue = "false") boolean unique
                              ) {
         return service.getUriHits(new StatParams(start, end, uris, unique));
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    Error handleBadRequest(BadRequestException e) {
+        return new Error(e.getMessage());
     }
 }
