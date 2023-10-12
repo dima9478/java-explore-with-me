@@ -3,16 +3,8 @@ package ru.practicum.ewm.error;
 import lombok.Getter;
 
 @Getter
-public class ConflictException extends RuntimeException {
-    private String reason;
-
-    public ConflictException(String reason) {
-        super();
-        this.reason = reason;
-    }
-
+public class ConflictException extends AbstractApiException {
     public ConflictException(String reason, String message) {
-        super(message);
-        this.reason = reason;
+        super(reason, message);
     }
 }

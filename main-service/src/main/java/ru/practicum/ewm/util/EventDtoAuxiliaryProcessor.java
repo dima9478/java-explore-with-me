@@ -8,7 +8,8 @@ import ru.practicum.client.StatsClient;
 import ru.practicum.dto.EndpointHitDto;
 import ru.practicum.dto.ViewStats;
 import ru.practicum.ewm.model.Event;
-import ru.practicum.ewm.model.EventConfirmedRequestCount;
+import ru.practicum.ewm.model.EventRequestCount;
+import ru.practicum.ewm.model.RequestStatus;
 import ru.practicum.ewm.repository.RequestRepository;
 
 import javax.servlet.http.HttpServletRequest;
@@ -92,13 +93,13 @@ public class EventDtoAuxiliaryProcessor {
         List<Long> eventIds = events.stream()
                 .map(Event::getId)
                 .collect(Collectors.toList());
-        List<EventConfirmedRequestCount> confirmedRequestCounts =
-                requestRepository.getEventsConfirmedRequestsCount(eventIds);
+        List<EventRequestCount> confirmedRequestCounts =
+                requestRepository.getEventsRequestsCountByStatus(eventIds, RequestStatus.CONFIRMED);
 
         return confirmedRequestCounts.stream()
                 .collect(Collectors.toMap(
-                        EventConfirmedRequestCount::getEventId,
-                        EventConfirmedRequestCount::getConfirmedRequests
+                        EventRequestCount::getEventId,
+                        EventRequestCount::getCount
                 ));
     }
 }

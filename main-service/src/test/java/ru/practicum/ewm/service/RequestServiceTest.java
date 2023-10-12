@@ -64,7 +64,7 @@ public class RequestServiceTest {
         request.getRequestor().setId(1L);
         request.getEvent().setState(EventState.PUBLISHED);
         when(availabilityChecker.checkEvent(1L)).thenReturn(event);
-        when(repository.getEventConfirmedRequestsCount(1L)).thenReturn(2L);
+        when(repository.getEventRequestsCountByStatus(1L, RequestStatus.CONFIRMED)).thenReturn(2L);
 
         assertThrows(ConflictException.class, () -> service.addRequest(1L, 1L));
     }
@@ -73,7 +73,7 @@ public class RequestServiceTest {
     void addRequest_whenEventNotPublished_thenThrowConflict() {
         request.getEvent().setState(EventState.CANCELED);
         when(availabilityChecker.checkEvent(1L)).thenReturn(event);
-        when(repository.getEventConfirmedRequestsCount(1L)).thenReturn(2L);
+        when(repository.getEventRequestsCountByStatus(1L, RequestStatus.CONFIRMED)).thenReturn(2L);
 
         assertThrows(ConflictException.class, () -> service.addRequest(2L, 1L));
     }
@@ -83,7 +83,7 @@ public class RequestServiceTest {
         request.getEvent().setState(EventState.PUBLISHED);
         request.getEvent().setParticipantLimit(2);
         when(availabilityChecker.checkEvent(1L)).thenReturn(event);
-        when(repository.getEventConfirmedRequestsCount(1L)).thenReturn(2L);
+        when(repository.getEventRequestsCountByStatus(1L, RequestStatus.CONFIRMED)).thenReturn(2L);
 
         assertThrows(ConflictException.class, () -> service.addRequest(2L, 1L));
     }
@@ -92,7 +92,7 @@ public class RequestServiceTest {
     void addRequest_NoLimit_thenSetConfirmed() {
         request.getEvent().setState(EventState.PUBLISHED);
         when(availabilityChecker.checkEvent(1L)).thenReturn(event);
-        when(repository.getEventConfirmedRequestsCount(1L)).thenReturn(2L);
+        when(repository.getEventRequestsCountByStatus(1L, RequestStatus.CONFIRMED)).thenReturn(2L);
         when(repository.save(any(Request.class))).thenReturn(request);
 
         service.addRequest(2L, 1L);

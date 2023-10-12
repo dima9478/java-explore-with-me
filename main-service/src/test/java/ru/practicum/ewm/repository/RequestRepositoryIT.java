@@ -96,16 +96,17 @@ public class RequestRepositoryIT {
 
     @Test
     void getEventsConfirmedRequestsCount() {
-        List<EventConfirmedRequestCount> counts = requestRepository.getEventsConfirmedRequestsCount(List.of(1L));
+        List<EventRequestCount> counts =
+                requestRepository.getEventsRequestsCountByStatus(List.of(1L), RequestStatus.CONFIRMED);
 
         assertThat(counts.size(), equalTo(1));
         assertThat(counts.get(0).getEventId(), equalTo(1L));
-        assertThat(counts.get(0).getConfirmedRequests(), equalTo(1L));
+        assertThat(counts.get(0).getCount(), equalTo(1L));
     }
 
     @Test
     void getEventConfirmedRequestsCount() {
-        long count = requestRepository.getEventConfirmedRequestsCount(1L);
+        long count = requestRepository.getEventRequestsCountByStatus(1L, RequestStatus.CONFIRMED);
 
         assertThat(count, equalTo(1L));
     }

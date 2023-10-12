@@ -77,7 +77,7 @@ public class EventServiceImpl implements EventService {
 
         return EventMapper.toEventFullDto(
                 event,
-                requestRepository.getEventConfirmedRequestsCount(eventId),
+                requestRepository.getEventRequestsCountByStatus(eventId, RequestStatus.CONFIRMED),
                 eventProcessor.getViewStats(List.of(event)).getOrDefault(eventId, 0L)
         );
     }
@@ -101,7 +101,7 @@ public class EventServiceImpl implements EventService {
         eventRepository.save(event);
         return EventMapper.toEventFullDto(
                 event,
-                requestRepository.getEventConfirmedRequestsCount(eventId),
+                requestRepository.getEventRequestsCountByStatus(eventId, RequestStatus.CONFIRMED),
                 eventProcessor.getViewStats(List.of(event)).getOrDefault(eventId, 0L)
         );
     }
@@ -126,7 +126,7 @@ public class EventServiceImpl implements EventService {
         }
 
         List<Request> requests = requestRepository.findAllByIdIn(dto.getRequestIds());
-        Long confirmedRequestsCount = requestRepository.getEventConfirmedRequestsCount(eventId);
+        Long confirmedRequestsCount = requestRepository.getEventRequestsCountByStatus(eventId, RequestStatus.CONFIRMED);
         Long delta = dto.getStatus().equals(UpdateRequestStatus.CONFIRMED) ? dto.getRequestIds().size() : 0L;
 
         validateRequestUpdate(dto, requests, confirmedRequestsCount, participantLimit);
@@ -203,7 +203,7 @@ public class EventServiceImpl implements EventService {
 
         return EventMapper.toEventFullDto(
                 event,
-                requestRepository.getEventConfirmedRequestsCount(eventId),
+                requestRepository.getEventRequestsCountByStatus(eventId, RequestStatus.CONFIRMED),
                 eventProcessor.getViewStats(List.of(event)).getOrDefault(eventId, 0L)
         );
     }
@@ -294,7 +294,7 @@ public class EventServiceImpl implements EventService {
 
         EventFullDto dto = EventMapper.toEventFullDto(
                 event,
-                requestRepository.getEventConfirmedRequestsCount(eventId),
+                requestRepository.getEventRequestsCountByStatus(eventId, RequestStatus.CONFIRMED),
                 eventProcessor.getViewStats(List.of(event)).getOrDefault(eventId, 0L)
         );
 

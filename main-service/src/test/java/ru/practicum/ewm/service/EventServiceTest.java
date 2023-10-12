@@ -127,7 +127,7 @@ public class EventServiceTest {
     @Test
     void getUserEvent() {
         when(eventProcessor.getViewStats(any(List.class))).thenReturn(Map.of(1L, 100L));
-        when(requestRepository.getEventConfirmedRequestsCount(1L)).thenReturn(5L);
+        when(requestRepository.getEventRequestsCountByStatus(1L, RequestStatus.CONFIRMED)).thenReturn(5L);
         when(availabilityChecker.checkEventByAuthor(1L, 1L)).thenReturn(event);
 
 
@@ -191,7 +191,7 @@ public class EventServiceTest {
         when(requestRepository.getAllByEventIdAndStatus(1L, RequestStatus.CONFIRMED)).thenReturn(List.of(request));
         when(requestRepository.getAllByEventIdAndStatus(1L, RequestStatus.REJECTED)).thenReturn(List.of());
         when(requestRepository.findAllByIdIn(List.of(1L))).thenReturn(List.of(request));
-        when(requestRepository.getEventConfirmedRequestsCount(1L)).thenReturn(90L);
+        when(requestRepository.getEventRequestsCountByStatus(1L, RequestStatus.CONFIRMED)).thenReturn(90L);
 
         EventRequestStatusUpdateResult dto = service.changeRequestsState(1L, 1L, updateDto);
         verify(requestRepository, atLeast(1)).save(any(Request.class));

@@ -30,7 +30,7 @@ public class RequestServiceImpl implements RequestService {
         Event event = availabilityChecker.checkEvent(eventId);
         validate(userId, event,
                 requestRepository
-                        .getEventConfirmedRequestsCount(event.getId())
+                        .getEventRequestsCountByStatus(event.getId(), RequestStatus.CONFIRMED)
         );
 
         boolean makeConfirmed = !event.isRequestModeration() || event.getParticipantLimit() == 0;

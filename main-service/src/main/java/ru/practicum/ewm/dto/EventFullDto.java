@@ -1,29 +1,27 @@
 package ru.practicum.ewm.dto;
 
-import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.SuperBuilder;
 import ru.practicum.ewm.model.EventState;
 import ru.practicum.ewm.model.Location;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Data
-@Builder
-public class EventFullDto {
-    private Long id;
-    private String annotation;
-    private CategoryDto category;
-    private long confirmedRequests;
+@EqualsAndHashCode(callSuper = true)
+@SuperBuilder
+public class EventFullDto extends EventDtoBase {
+    @NotNull
     private LocalDateTime createdOn;
+    @NotBlank
     private String description;
-    private LocalDateTime eventDate;
-    private UserShortDto initiator;
     private Location location;
-    private Boolean paid;
     private Integer participantLimit;
     private LocalDateTime publishedOn;
     private Boolean requestModeration;
+    @NotNull
     private EventState state;
-    private String title;
-    private long views;
 }

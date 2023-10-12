@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class EventConfirmedRequestCount {
+public class EventRequestCount {
     private Long eventId;
-    private Long confirmedRequests;
+    private Long count;
 }

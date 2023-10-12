@@ -1,20 +1,11 @@
 package ru.practicum.ewm.dto;
 
-import lombok.Builder;
 import lombok.Data;
-
-import java.time.LocalDateTime;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.SuperBuilder;
 
 @Data
-@Builder
-public class EventShortDto {
-    private Long id;
-    private String annotation;
-    private CategoryDto category;
-    private long confirmedRequests;
-    private LocalDateTime eventDate;
-    private UserShortDto initiator;
-    private Boolean paid;
-    private String title;
-    private long views;
+@EqualsAndHashCode(callSuper = true)
+@SuperBuilder
+public class EventShortDto extends EventDtoBase {
 }

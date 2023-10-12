@@ -3,16 +3,8 @@ package ru.practicum.ewm.error;
 import lombok.Getter;
 
 @Getter
-public class NotFoundException extends RuntimeException {
-    private String reason;
-
-    public NotFoundException(String reason) {
-        super();
-        this.reason = reason;
-    }
-
+public class NotFoundException extends AbstractApiException {
     public NotFoundException(String reason, String message) {
-        super(message);
-        this.reason = reason;
+        super(reason, message);
     }
 }
