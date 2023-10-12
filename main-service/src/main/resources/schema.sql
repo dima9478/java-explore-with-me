@@ -34,7 +34,8 @@ CREATE TABLE IF NOT EXISTS events
     state              varchar(20) NOT NULL,
     author_id          bigint      NOT NULL REFERENCES users (id) ON DELETE CASCADE,
     lat                double precision,
-    lon                double precision
+    lon double precision,
+    CHECK (participant_limit >= 0)
 );
 
 CREATE TABLE IF NOT EXISTS participant_requests
