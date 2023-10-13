@@ -4,11 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.practicum.dto.EndpointHitDto;
 import ru.practicum.dto.ViewStats;
+import ru.practicum.ewm.error.BadRequestException;
 import ru.practicum.ewm.mapper.HitMapper;
 import ru.practicum.ewm.param.StatParams;
 import ru.practicum.ewm.repository.EndpointHitRepository;
 
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -24,7 +24,7 @@ public class HitServiceImpl implements HitService {
     @Override
     public List<ViewStats> getUriHits(StatParams params) {
         if (!params.getEnd().isAfter(params.getStart())) {
-            return Collections.emptyList();
+            throw new BadRequestException("End must be after start");
         }
         if (params.getUris() != null) {
             if (params.isUnique()) {
