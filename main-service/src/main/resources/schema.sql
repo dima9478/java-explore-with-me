@@ -54,3 +54,14 @@ CREATE TABLE IF NOT EXISTS events_compilations
     event_id       bigint REFERENCES events (id),
     PRIMARY KEY (compilation_id, event_id)
 );
+
+CREATE TABLE IF NOT EXISTS poi
+(
+    id            bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    name          varchar(255)     NOT NULL UNIQUE,
+    lat           double precision NOT NULL,
+    lon           double precision NOT NULL,
+    impact_radius double precision NOT NULL,
+    state         varchar(20)      NOT NULL,
+    CHECK (impact_radius > 0)
+);
