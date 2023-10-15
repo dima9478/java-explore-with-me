@@ -1,1334 +1,1330 @@
 {
-  "info": {
-    "_postman_id": "000abd58-0f40-4390-b317-f34171597932",
-    "name": "Explore with me - Additional feature",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "27443903"
-  },
-  "item": [
-    {
-      "name": "Init",
-      "item": [
-        {
-          "name": "Add user",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Ответ должен содержать код статуса 201 и данные в формате json\", function () {",
-                  "    pm.response.to.have.status(201);",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"name\": \"user name 1\",\n    \"email\": \"user@mail.ru\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseUrl}}/admin/users",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "admin",
-                "users"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Add category",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Ответ должен содержать код статуса 201 и данные в формате json\", function () {",
-                  "    pm.response.to.have.status(201);",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"name\": \"cat name 1\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseUrl}}/admin/categories",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "admin",
-                "categories"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Add event",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Ответ должен содержать код статуса 201 и данные в формате json\", function () {",
-                  "    pm.response.to.have.status(201);",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"annotation\": \"Сплав на байдарках похож на полет.\",\n  \"category\": 1,\n  \"description\": \"Сплав на байдарках похож на полет. На спокойной воде — это парение. На бурной, порожистой — выполнение фигур высшего пилотажа. И то, и другое дарят чувство обновления, феерические эмоции, яркие впечатления.\",\n  \"eventDate\": \"2024-12-31 15:10:05\",\n  \"location\": {\n    \"lat\": 55.754167,\n    \"lon\": 37.62\n  },\n  \"paid\": true,\n  \"participantLimit\": 10,\n  \"requestModeration\": false,\n  \"title\": \"Сплав на байдарках\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseUrl}}/users/:userId/events",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "users",
-                ":userId",
-                "events"
-              ],
-              "variable": [
-                {
-                  "key": "userId",
-                  "value": "1"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "New Request",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {",
-                  "    pm.response.to.be.ok;",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "PATCH",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"stateAction\": \"PUBLISH_EVENT\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseUrl}}/admin/events/:eventId",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "admin",
-                "events",
-                ":eventId"
-              ],
-              "variable": [
-                {
-                  "key": "eventId",
-                  "value": "1"
-                }
-              ]
-            }
-          },
-          "response": []
-        }
-      ],
-      "event": [
-        {
-          "listen": "prerequest",
-          "script": {
-            "type": "text/javascript",
-            "exec": [
-              ""
-            ]
-          }
-        },
-        {
-          "listen": "test",
-          "script": {
-            "type": "text/javascript",
-            "exec": [
-              ""
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "name": "Add new poi - name size < 3",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "exec": [
-              "pm.test(\"Ответ должен содержать код статуса 400 и данные в формате json\", function() {",
-              "    pm.response.to.be.badRequest;",
-              "});"
-            ],
-            "type": "text/javascript"
-          }
-        }
-      ],
-      "request": {
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n    \"name\": \"nm\",\n    \"location\": {\n        \"lat\":45.5,\n        \"lon\": 56.3\n    },\n    \"impactRadius\": 90\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "{{baseUrl}}/admin/poi",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "admin",
-            "poi"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Add users new poi - name size < 3",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "exec": [
-              "pm.test(\"Ответ должен содержать код статуса 400 и данные в формате json\", function() {",
-              "    pm.response.to.be.badRequest;",
-              "});"
-            ],
-            "type": "text/javascript"
-          }
-        }
-      ],
-      "request": {
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n    \"name\": \"nm\",\n    \"location\": {\n        \"lat\":45.5,\n        \"lon\": 56.3\n    },\n    \"impactRadius\": 90\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "{{baseUrl}}/users/poi",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "users",
-            "poi"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Add new poi - null location",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "exec": [
-              "pm.test(\"Ответ должен содержать код статуса 400 и данные в формате json\", function() {",
-              "    pm.response.to.be.badRequest;",
-              "});"
-            ],
-            "type": "text/javascript"
-          }
-        }
-      ],
-      "request": {
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n    \"name\": \"name for poi\",\n    \"location\": null,\n    \"impactRadius\": 90\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "{{baseUrl}}/admin/poi",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "admin",
-            "poi"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Add users new poi - null location",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "exec": [
-              "pm.test(\"Ответ должен содержать код статуса 400 и данные в формате json\", function() {",
-              "    pm.response.to.be.badRequest;",
-              "});"
-            ],
-            "type": "text/javascript"
-          }
-        }
-      ],
-      "request": {
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n    \"name\": \"name for poi 2\",\n    \"location\": null,\n    \"impactRadius\": 90\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "{{baseUrl}}/users/poi",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "users",
-            "poi"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Add poi - negative radius",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "exec": [
-              "pm.test(\"Ответ должен содержать код статуса 400 и данные в формате json\", function() {",
-              "    pm.response.to.be.badRequest;",
-              "});"
-            ],
-            "type": "text/javascript"
-          }
-        }
-      ],
-      "request": {
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n    \"name\": \"name for poi\",\n    \"location\": {\n        \"lat\":45.5,\n        \"lon\": 56.3\n    },\n    \"impactRadius\": -90\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "{{baseUrl}}/admin/poi",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "admin",
-            "poi"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Add users poi - negative radius",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "exec": [
-              "pm.test(\"Ответ должен содержать код статуса 400 и данные в формате json\", function() {",
-              "    pm.response.to.be.badRequest;",
-              "});"
-            ],
-            "type": "text/javascript"
-          }
-        }
-      ],
-      "request": {
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n    \"name\": \"name for poi 2 \",\n    \"location\": {\n        \"lat\":45.5,\n        \"lon\": 56.3\n    },\n    \"impactRadius\": -90\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "{{baseUrl}}/users/poi",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "users",
-            "poi"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Add poi",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "exec": [
-              "const body = pm.response.json();",
-              "",
-              "pm.test(\"Ответ должен содержать код статуса 201 и state = CONFIRMED\", function() {",
-              "    pm.response.to.have.status(201);",
-              "});",
-              "",
-              "pm.test(\"Ответ должен содержать поля id, state\", function() {",
-              "    ",
-              "    pm.expect(body).to.have.property(\"id\")",
-              "    pm.expect(body).to.have.property(\"state\")",
-              "}); ",
-              "",
-              "pm.test(\"State должен быть CONFIRMED\", function() {",
-              "    pm.expect(body.state).equal(\"CONFIRMED\");",
-              "})"
-            ],
-            "type": "text/javascript"
-          }
-        }
-      ],
-      "request": {
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n    \"name\": \"name for the poi 1\",\n    \"location\": {\n        \"lat\": 55.754,\n        \"lon\": 37.6205\n    },\n    \"impactRadius\": 150\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "{{baseUrl}}/admin/poi",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "admin",
-            "poi"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Add users poi",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "exec": [
-              "const body = pm.response.json();",
-              "",
-              "pm.test(\"Ответ должен содержать код статуса 201 и state = CONFIRMED\", function() {",
-              "    pm.response.to.have.status(201);",
-              "});",
-              "",
-              "pm.test(\"Ответ должен содержать поля id, state\", function() {",
-              "    ",
-              "    pm.expect(body).to.have.property(\"id\")",
-              "    pm.expect(body).to.have.property(\"state\")",
-              "}); ",
-              "",
-              "pm.test(\"State должен быть CONFIRMED\", function() {",
-              "    pm.expect(body.state).equal(\"PENDING\");",
-              "})"
-            ],
-            "type": "text/javascript"
-          }
-        }
-      ],
-      "request": {
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n    \"name\": \"name for the poi 2\",\n    \"location\": {\n        \"lat\": 23.754,\n        \"lon\": 100.6205\n    },\n    \"impactRadius\": 160\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "{{baseUrl}}/users/poi",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "users",
-            "poi"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Add poi - duplicate name",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "exec": [
-              "pm.test(\"Ответ должен содержать код статуса 409\", function() {",
-              "    pm.response.to.have.status(409);",
-              "});"
-            ],
-            "type": "text/javascript"
-          }
-        }
-      ],
-      "request": {
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n    \"name\": \"name for the poi 1\",\n    \"location\": {\n        \"lat\":45.6,\n        \"lon\": 56.2\n    },\n    \"impactRadius\": 85\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "{{baseUrl}}/admin/poi",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "admin",
-            "poi"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Add users poi - duplicate name",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "exec": [
-              "pm.test(\"Ответ должен содержать код статуса 409\", function() {",
-              "    pm.response.to.have.status(409);",
-              "});"
-            ],
-            "type": "text/javascript"
-          }
-        }
-      ],
-      "request": {
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n    \"name\": \"name for the poi 2\",\n    \"location\": {\n        \"lat\":45.6,\n        \"lon\": 56.2\n    },\n    \"impactRadius\": 85\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "{{baseUrl}}/users/poi",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "users",
-            "poi"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Change poi - name size < 3",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "exec": [
-              "pm.test(\"Ответ должен содержать код статуса 400\", function() {",
-              "    pm.response.to.be.badRequest;",
-              "});"
-            ],
-            "type": "text/javascript"
-          }
-        }
-      ],
-      "request": {
-        "method": "PATCH",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n    \"name\": \"nm\"\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "{{baseUrl}}/admin/poi/:poiId",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "admin",
-            "poi",
-            ":poiId"
-          ],
-          "variable": [
-            {
-              "key": "poiId",
-              "value": "1"
-            }
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Change poi - negative radius",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "exec": [
-              "pm.test(\"Ответ должен содержать код статуса 400\", function() {",
-              "    pm.response.to.be.badRequest;",
-              "});"
-            ],
-            "type": "text/javascript"
-          }
-        }
-      ],
-      "request": {
-        "method": "PATCH",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n    \"impactRadius\": -90\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "{{baseUrl}}/admin/poi/:poiId",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "admin",
-            "poi",
-            ":poiId"
-          ],
-          "variable": [
-            {
-              "key": "poiId",
-              "value": "1"
-            }
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Change poi - update not existing poi",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "exec": [
-              "pm.test(\"Ответ должен содержать код статуса 404\", function() {",
-              "    pm.response.to.be.notFound;",
-              "});"
-            ],
-            "type": "text/javascript"
-          }
-        }
-      ],
-      "request": {
-        "method": "PATCH",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n    \"impactRadius\": 90\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "{{baseUrl}}/admin/poi/:poiId",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "admin",
-            "poi",
-            ":poiId"
-          ],
-          "variable": [
-            {
-              "key": "poiId",
-              "value": "100"
-            }
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Change poi - update not pending poi",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "exec": [
-              "pm.test(\"Ответ должен содержать код статуса 409\", function() {",
-              "    pm.response.to.have.status(409);",
-              "});"
-            ],
-            "type": "text/javascript"
-          }
-        }
-      ],
-      "request": {
-        "method": "PATCH",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n    \"action\": \"CONFIRM_POI\"\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "{{baseUrl}}/admin/poi/:poiId",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "admin",
-            "poi",
-            ":poiId"
-          ],
-          "variable": [
-            {
-              "key": "poiId",
-              "value": "1"
-            }
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Change poi",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "exec": [
-              "const body = pm.response.json();",
-              "",
-              "pm.test(\"Ответ должен содержать код статуса 200\", function() {",
-              "    pm.response.to.be.ok;",
-              "});",
-              "",
-              "pm.test(\"Ответ должен содержать обновленные поля с новым значением\", function() {",
-              "    pm.expect(body).to.have.property(\"state\");",
-              "    pm.expect(body).to.have.property(\"name\");",
-              "",
-              "    pm.expect(body.state).equal(\"CONFIRMED\");",
-              "    pm.expect(body.name).equal(\"new poi 2 name\");",
-              "});",
-              ""
-            ],
-            "type": "text/javascript"
-          }
-        }
-      ],
-      "request": {
-        "method": "PATCH",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n    \"action\": \"CONFIRM_POI\",\n    \"name\": \"new poi 2 name\"\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "{{baseUrl}}/admin/poi/:poiId",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "admin",
-            "poi",
-            ":poiId"
-          ],
-          "variable": [
-            {
-              "key": "poiId",
-              "value": "2"
-            }
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Get admin pois - no parameters",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "exec": [
-              "const body = pm.response.json();",
-              "",
-              "pm.test(\"Ответ должен содержать код статуса 200 и быть массивом\", function() {",
-              "    pm.response.to.be.ok;",
-              "     pm.expect(body).is.an('array');",
-              "});"
-            ],
-            "type": "text/javascript"
-          }
-        }
-      ],
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "{{baseUrl}}/admin/poi",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "admin",
-            "poi"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Get admin pois - with rejected states",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "exec": [
-              "const body = pm.response.json();",
-              "",
-              "pm.test(\"Ответ должен содержать код статуса 200 и быть массивом\", function() {",
-              "    pm.response.to.be.ok;",
-              "    pm.expect(body).is.an('array');",
-              "});",
-              "",
-              "pm.test(\"Ответ должен быть пустым массивом\", function() {",
-              "    pm.expect(body.length).equal(0);",
-              "});"
-            ],
-            "type": "text/javascript"
-          }
-        }
-      ],
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "{{baseUrl}}/admin/poi?states=REJECTED",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "admin",
-            "poi"
-          ],
-          "query": [
-            {
-              "key": "states",
-              "value": "REJECTED"
-            }
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Get admin pois - with bbox out of borders",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "exec": [
-              "pm.test(\"Ответ должен содержать код статуса 400\", function() {",
-              "    pm.response.to.be.badRequest;",
-              "});",
-              ""
-            ],
-            "type": "text/javascript"
-          }
-        }
-      ],
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "{{baseUrl}}/admin/poi?bbox=-190,-89,90,185",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "admin",
-            "poi"
-          ],
-          "query": [
-            {
-              "key": "bbox",
-              "value": "-190,-89,90,185"
-            }
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Get admin pois - with bbox",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "exec": [
-              "const body = pm.response.json();",
-              "",
-              "pm.test(\"Ответ должен содержать код статуса 200 и быть массивом\", function() {",
-              "    pm.response.to.be.ok;",
-              "    pm.expect(body).is.an(\"array\");",
-              "});",
-              "",
-              "pm.test(\"Ответ должен быть пустым массивом\", function() {",
-              "    pm.expect(body.length).equal(0);",
-              "});",
-              ""
-            ],
-            "type": "text/javascript"
-          }
-        }
-      ],
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "{{baseUrl}}/admin/poi?bbox=-180,-89,-35,-88&size=9&offset=0",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "admin",
-            "poi"
-          ],
-          "query": [
-            {
-              "key": "bbox",
-              "value": "-180,-89,-35,-88"
-            },
-            {
-              "key": "size",
-              "value": "9"
-            },
-            {
-              "key": "offset",
-              "value": "0"
-            }
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Get public pois - with bbox",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "exec": [
-              "const body = pm.response.json();",
-              "",
-              "pm.test(\"Ответ должен содержать код статуса 200 и быть массивом\", function() {",
-              "    pm.response.to.be.ok;",
-              "    pm.expect(body).is.an(\"array\");",
-              "});",
-              "",
-              "pm.test(\"Ответ должен быть пустым массивом\", function() {",
-              "    pm.expect(body.length).equal(0);",
-              "});",
-              ""
-            ],
-            "type": "text/javascript"
-          }
-        }
-      ],
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "{{baseUrl}}/poi?bbox=-180,-89,-35,-88&size=9&offset=0",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "poi"
-          ],
-          "query": [
-            {
-              "key": "bbox",
-              "value": "-180,-89,-35,-88"
-            },
-            {
-              "key": "size",
-              "value": "9"
-            },
-            {
-              "key": "offset",
-              "value": "0"
-            }
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Get public pois - no parameters",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "exec": [
-              "const body = pm.response.json();",
-              "",
-              "pm.test(\"Ответ должен содержать код статуса 200 и быть массивом\", function() {",
-              "    pm.response.to.be.ok;",
-              "     pm.expect(body).is.an('array');",
-              "});"
-            ],
-            "type": "text/javascript"
-          }
-        }
-      ],
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "{{baseUrl}}/poi",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "poi"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Get public pois - with text search",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "exec": [
-              "const body = pm.response.json();",
-              "",
-              "pm.test(\"Ответ должен содержать код статуса 200 и быть массивом\", function() {",
-              "    pm.response.to.be.ok;",
-              "    pm.expect(body).is.an('array');",
-              "});",
-              "",
-              "pm.test(\"Ответ должен быть массивом c одним элементом\", function() {",
-              "    pm.expect(body.length).equal(1);",
-              "});",
-              "",
-              "pm.test(\"Первый элемент должен иметь определенное имя\", function() {",
-              "    pm.expect(body[0].name).equal(\"new poi 2 name\");",
-              "});"
-            ],
-            "type": "text/javascript"
-          }
-        }
-      ],
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "{{baseUrl}}/poi?text=NeW",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "poi"
-          ],
-          "query": [
-            {
-              "key": "text",
-              "value": "NeW"
-            }
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Get public pois - with bbox out of borders",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "exec": [
-              "pm.test(\"Ответ должен содержать код статуса 400\", function() {",
-              "    pm.response.to.be.badRequest;",
-              "});",
-              ""
-            ],
-            "type": "text/javascript"
-          }
-        }
-      ],
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "{{baseUrl}}/poi?bbox=-190,-89,90,185",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "poi"
-          ],
-          "query": [
-            {
-              "key": "bbox",
-              "value": "-190,-89,90,185"
-            }
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Get poi events - no poi",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "exec": [
-              "pm.test(\"Ответ должен иметь статус 404\", function() {",
-              "    pm.response.to.be.notFound;",
-              "});"
-            ],
-            "type": "text/javascript"
-          }
-        }
-      ],
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "{{baseUrl}}/poi/:poiId/events",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "poi",
-            ":poiId",
-            "events"
-          ],
-          "variable": [
-            {
-              "key": "poiId",
-              "value": "100"
-            }
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Get poi events",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "exec": [
-              "const body = pm.response.json();",
-              "",
-              "pm.test(\"Ответ должен иметь статус 200 и быть массивом\", function() {",
-              "    pm.response.to.be.ok;",
-              "    pm.expect(body).is.an(\"array\");",
-              "});",
-              "",
-              "pm.test(\"Ответ должен содержать одно событие\", function() {",
-              "    pm.expect(body.length).equal(1);",
-              "    pm.expect(body[0].id).equal(1);",
-              "});",
-              ""
-            ],
-            "type": "text/javascript"
-          }
-        }
-      ],
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "{{baseUrl}}/poi/:poiId/events",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "poi",
-            ":poiId",
-            "events"
-          ],
-          "variable": [
-            {
-              "key": "poiId",
-              "value": "1"
-            }
-          ]
-        }
-      },
-      "response": []
-    }
-  ],
-  "event": [
-    {
-      "listen": "prerequest",
-      "script": {
-        "type": "text/javascript",
-        "exec": [
-          ""
-        ]
-      }
-    },
-    {
-      "listen": "test",
-      "script": {
-        "type": "text/javascript",
-        "exec": [
-          "pm.test(\"Ответ должен содержать тело и быть в формате json\", function() {",
-          "    pm.response.to.be.withBody;",
-          "    pm.response.to.be.json;",
-          "})",
-          "",
-          ""
-        ]
-      }
-    }
-  ],
-  "variable": [
-    {
-      "key": "baseUrl",
-      "value": "http://localhost:8080",
-      "type": "string"
-    }
-  ]
+	"info": {
+		"_postman_id": "000abd58-0f40-4390-b317-f34171597932",
+		"name": "Explore with me - Additional feature",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27443903"
+	},
+	"item": [
+		{
+			"name": "Init",
+			"item": [
+				{
+					"name": "Add user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 201 и данные в формате json\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"user name 1\",\n    \"email\": \"user@mail.ru\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/users",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add category",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 201 и данные в формате json\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"cat name 1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/categories",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add event",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 201 и данные в формате json\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"annotation\": \"Сплав на байдарках похож на полет.\",\n  \"category\": 1,\n  \"description\": \"Сплав на байдарках похож на полет. На спокойной воде — это парение. На бурной, порожистой — выполнение фигур высшего пилотажа. И то, и другое дарят чувство обновления, феерические эмоции, яркие впечатления.\",\n  \"eventDate\": \"2024-12-31 15:10:05\",\n  \"location\": {\n    \"lat\": 55.754167,\n    \"lon\": 37.62\n  },\n  \"paid\": true,\n  \"participantLimit\": 10,\n  \"requestModeration\": false,\n  \"title\": \"Сплав на байдарках\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/events",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"events"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {",
+									"    pm.response.to.be.ok;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"stateAction\": \"PUBLISH_EVENT\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/events/:eventId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"events",
+								":eventId"
+							],
+							"variable": [
+								{
+									"key": "eventId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Add new poi - name size < 3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Ответ должен содержать код статуса 400 и данные в формате json\", function() {",
+							"    pm.response.to.be.badRequest;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"nm\",\n    \"location\": {\n        \"lat\":45.5,\n        \"lon\": 56.3\n    },\n    \"impactRadius\": 90\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/admin/poi",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"admin",
+						"poi"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add users new poi - name size < 3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Ответ должен содержать код статуса 400 и данные в формате json\", function() {",
+							"    pm.response.to.be.badRequest;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"nm\",\n    \"location\": {\n        \"lat\":45.5,\n        \"lon\": 56.3\n    },\n    \"impactRadius\": 90\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/users/poi",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users",
+						"poi"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add new poi - null location",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Ответ должен содержать код статуса 400 и данные в формате json\", function() {",
+							"    pm.response.to.be.badRequest;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"name for poi\",\n    \"location\": null,\n    \"impactRadius\": 90\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/admin/poi",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"admin",
+						"poi"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add users new poi - null location",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Ответ должен содержать код статуса 400 и данные в формате json\", function() {",
+							"    pm.response.to.be.badRequest;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"name for poi 2\",\n    \"location\": null,\n    \"impactRadius\": 90\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/users/poi",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users",
+						"poi"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add poi - negative radius",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Ответ должен содержать код статуса 400 и данные в формате json\", function() {",
+							"    pm.response.to.be.badRequest;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"name for poi\",\n    \"location\": {\n        \"lat\":45.5,\n        \"lon\": 56.3\n    },\n    \"impactRadius\": -90\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/admin/poi",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"admin",
+						"poi"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add users poi - negative radius",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Ответ должен содержать код статуса 400 и данные в формате json\", function() {",
+							"    pm.response.to.be.badRequest;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"name for poi 2 \",\n    \"location\": {\n        \"lat\":45.5,\n        \"lon\": 56.3\n    },\n    \"impactRadius\": -90\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/users/poi",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users",
+						"poi"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add poi",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const body = pm.response.json();",
+							"",
+							"pm.test(\"Ответ должен содержать код статуса 201 и state = CONFIRMED\", function() {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Ответ должен содержать поля id, state\", function() {",
+							"    ",
+							"    pm.expect(body).to.have.property(\"id\")",
+							"    pm.expect(body).to.have.property(\"state\")",
+							"}); ",
+							"",
+							"pm.test(\"State должен быть CONFIRMED\", function() {",
+							"    pm.expect(body.state).equal(\"CONFIRMED\");",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"name for the poi 1\",\n    \"location\": {\n        \"lat\": 55.754,\n        \"lon\": 37.6205\n    },\n    \"impactRadius\": 150\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/admin/poi",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"admin",
+						"poi"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add users poi",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const body = pm.response.json();",
+							"",
+							"pm.test(\"Ответ должен содержать код статуса 201 и state = CONFIRMED\", function() {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Ответ должен содержать поля id, state\", function() {",
+							"    ",
+							"    pm.expect(body).to.have.property(\"id\")",
+							"    pm.expect(body).to.have.property(\"state\")",
+							"}); ",
+							"",
+							"pm.test(\"State должен быть CONFIRMED\", function() {",
+							"    pm.expect(body.state).equal(\"PENDING\");",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"name for the poi 2\",\n    \"location\": {\n        \"lat\": 23.754,\n        \"lon\": 100.6205\n    },\n    \"impactRadius\": 160\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/users/poi",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users",
+						"poi"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add poi - duplicate name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Ответ должен содержать код статуса 409\", function() {",
+							"    pm.response.to.have.status(409);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"name for the poi 1\",\n    \"location\": {\n        \"lat\":45.6,\n        \"lon\": 56.2\n    },\n    \"impactRadius\": 85\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/admin/poi",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"admin",
+						"poi"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add users poi - duplicate name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Ответ должен содержать код статуса 409\", function() {",
+							"    pm.response.to.have.status(409);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"name for the poi 2\",\n    \"location\": {\n        \"lat\":45.6,\n        \"lon\": 56.2\n    },\n    \"impactRadius\": 85\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/users/poi",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users",
+						"poi"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change poi - name size < 3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Ответ должен содержать код статуса 400\", function() {",
+							"    pm.response.to.be.badRequest;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"nm\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/admin/poi/:poiId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"admin",
+						"poi",
+						":poiId"
+					],
+					"variable": [
+						{
+							"key": "poiId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change poi - negative radius",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Ответ должен содержать код статуса 400\", function() {",
+							"    pm.response.to.be.badRequest;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"impactRadius\": -90\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/admin/poi/:poiId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"admin",
+						"poi",
+						":poiId"
+					],
+					"variable": [
+						{
+							"key": "poiId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change poi - update not existing poi",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Ответ должен содержать код статуса 404\", function() {",
+							"    pm.response.to.be.notFound;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"impactRadius\": 90\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/admin/poi/:poiId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"admin",
+						"poi",
+						":poiId"
+					],
+					"variable": [
+						{
+							"key": "poiId",
+							"value": "100"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change poi - update not pending poi",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Ответ должен содержать код статуса 409\", function() {",
+							"    pm.response.to.have.status(409);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"action\": \"CONFIRM_POI\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/admin/poi/:poiId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"admin",
+						"poi",
+						":poiId"
+					],
+					"variable": [
+						{
+							"key": "poiId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change poi",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const body = pm.response.json();",
+							"",
+							"pm.test(\"Ответ должен содержать код статуса 200\", function() {",
+							"    pm.response.to.be.ok;",
+							"});",
+							"",
+							"pm.test(\"Ответ должен содержать обновленные поля с новым значением\", function() {",
+							"    pm.expect(body).to.have.property(\"state\");",
+							"    pm.expect(body).to.have.property(\"name\");",
+							"",
+							"    pm.expect(body.state).equal(\"CONFIRMED\");",
+							"    pm.expect(body.name).equal(\"new poi 2 name\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"action\": \"CONFIRM_POI\",\n    \"name\": \"new poi 2 name\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/admin/poi/:poiId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"admin",
+						"poi",
+						":poiId"
+					],
+					"variable": [
+						{
+							"key": "poiId",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get admin pois - no parameters",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const body = pm.response.json();",
+							"",
+							"pm.test(\"Ответ должен содержать код статуса 200 и быть массивом\", function() {",
+							"    pm.response.to.be.ok;",
+							"     pm.expect(body).is.an('array');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/admin/poi",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"admin",
+						"poi"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get admin pois - with rejected states",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const body = pm.response.json();",
+							"",
+							"pm.test(\"Ответ должен содержать код статуса 200 и быть массивом\", function() {",
+							"    pm.response.to.be.ok;",
+							"    pm.expect(body).is.an('array');",
+							"});",
+							"",
+							"pm.test(\"Ответ должен быть пустым массивом\", function() {",
+							"    pm.expect(body.length).equal(0);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/admin/poi?states=REJECTED",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"admin",
+						"poi"
+					],
+					"query": [
+						{
+							"key": "states",
+							"value": "REJECTED"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get admin pois - with bbox out of borders",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Ответ должен содержать код статуса 400\", function() {",
+							"    pm.response.to.be.badRequest;",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/admin/poi?bbox=-190,-89,90,185",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"admin",
+						"poi"
+					],
+					"query": [
+						{
+							"key": "bbox",
+							"value": "-190,-89,90,185"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get admin pois - with bbox",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const body = pm.response.json();",
+							"",
+							"pm.test(\"Ответ должен содержать код статуса 200 и быть массивом\", function() {",
+							"    pm.response.to.be.ok;",
+							"    pm.expect(body).is.an(\"array\");",
+							"});",
+							"",
+							"pm.test(\"Ответ должен быть пустым массивом\", function() {",
+							"    pm.expect(body.length).equal(0);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/admin/poi?bbox=-180,-89,-35,-88&size=9&offset=0",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"admin",
+						"poi"
+					],
+					"query": [
+						{
+							"key": "bbox",
+							"value": "-180,-89,-35,-88"
+						},
+						{
+							"key": "size",
+							"value": "9"
+						},
+						{
+							"key": "offset",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get public pois - with bbox",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const body = pm.response.json();",
+							"",
+							"pm.test(\"Ответ должен содержать код статуса 200 и быть массивом\", function() {",
+							"    pm.response.to.be.ok;",
+							"    pm.expect(body).is.an(\"array\");",
+							"});",
+							"",
+							"pm.test(\"Ответ должен быть пустым массивом\", function() {",
+							"    pm.expect(body.length).equal(0);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/poi?bbox=-180,-89,-35,-88&size=9&offset=0",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"poi"
+					],
+					"query": [
+						{
+							"key": "bbox",
+							"value": "-180,-89,-35,-88"
+						},
+						{
+							"key": "size",
+							"value": "9"
+						},
+						{
+							"key": "offset",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get public pois - no parameters",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const body = pm.response.json();",
+							"",
+							"pm.test(\"Ответ должен содержать код статуса 200 и быть массивом\", function() {",
+							"    pm.response.to.be.ok;",
+							"     pm.expect(body).is.an('array');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/poi",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"poi"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get public pois - with text search",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const body = pm.response.json();",
+							"",
+							"pm.test(\"Ответ должен содержать код статуса 200 и быть массивом\", function() {",
+							"    pm.response.to.be.ok;",
+							"    pm.expect(body).is.an('array');",
+							"});",
+							"",
+							"pm.test(\"Ответ должен быть массивом c одним элементом\", function() {",
+							"    pm.expect(body.length).equal(1);",
+							"});",
+							"",
+							"pm.test(\"Первый элемент должен иметь определенное имя\", function() {",
+							"    pm.expect(body[0].name).equal(\"new poi 2 name\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/poi?text=NeW",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"poi"
+					],
+					"query": [
+						{
+							"key": "text",
+							"value": "NeW"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get public pois - with bbox out of borders",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Ответ должен содержать код статуса 400\", function() {",
+							"    pm.response.to.be.badRequest;",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/poi?bbox=-190,-89,90,185",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"poi"
+					],
+					"query": [
+						{
+							"key": "bbox",
+							"value": "-190,-89,90,185"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get poi events - no poi",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Ответ должен иметь статус 404\", function() {",
+							"    pm.response.to.be.notFound;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/poi/:poiId/events",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"poi",
+						":poiId",
+						"events"
+					],
+					"variable": [
+						{
+							"key": "poiId",
+							"value": "100"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get poi events",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const body = pm.response.json();",
+							"",
+							"pm.test(\"Ответ должен иметь статус 200 и быть массивом\", function() {",
+							"    pm.response.to.be.ok;",
+							"    pm.expect(body).is.an(\"array\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/poi/:poiId/events",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"poi",
+						":poiId",
+						"events"
+					],
+					"variable": [
+						{
+							"key": "poiId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Ответ должен содержать тело и быть в формате json\", function() {",
+					"    pm.response.to.be.withBody;",
+					"    pm.response.to.be.json;",
+					"})",
+					"",
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	]
 }
