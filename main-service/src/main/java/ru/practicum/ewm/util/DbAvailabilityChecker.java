@@ -14,6 +14,7 @@ public class DbAvailabilityChecker {
     private final EventRepository eventRepository;
     private final CompilationRepository compilationRepository;
     private final RequestRepository requestRepository;
+    private final PoiRepository poiRepository;
     private final String reason = "The required object was not found";
     private final String messagePattern = "%s with id=%d was not found";
 
@@ -75,6 +76,15 @@ public class DbAvailabilityChecker {
                 () -> new NotFoundException(
                         reason,
                         String.format(messagePattern, "Request", requestId)
+                )
+        );
+    }
+
+    public Poi checkPoi(long poiId) {
+        return poiRepository.findById(poiId).orElseThrow(
+                () -> new NotFoundException(
+                        reason,
+                        String.format(messagePattern, "POI", poiId)
                 )
         );
     }
